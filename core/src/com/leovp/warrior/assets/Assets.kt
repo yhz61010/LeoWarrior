@@ -23,6 +23,7 @@ class Assets {
         lateinit var bakerTextureRegion: Array<Array<TextureRegion>>
         lateinit var modernGuy02TextureRegion: Array<Array<TextureRegion>>
         lateinit var russianF1TextureRegion: Array<Array<TextureRegion>>
+        lateinit var lightYagamiTextureRegion: Array<Array<TextureRegion>>
 
         fun loadTexture(file: String): Texture = Texture(Gdx.files.internal(file))
         fun loadAtlas(file: String): TextureAtlas = TextureAtlas(file)
@@ -58,6 +59,9 @@ class Assets {
 
         val russianF1Sheet = loadTexture("characters/russian_f1.png")
         russianF1TextureRegion = TextureRegion.split(russianF1Sheet, russianF1Sheet.width / Character.FRAME_COLS, russianF1Sheet.height / Character.FRAME_ROWS)
+
+        val lightYagamiSheet = loadTexture("characters/lightyagami.png")
+        lightYagamiTextureRegion = TextureRegion.split(lightYagamiSheet, lightYagamiSheet.width / Character.FRAME_COLS, lightYagamiSheet.height / Character.FRAME_ROWS)
     }
 
     fun dispose() {
