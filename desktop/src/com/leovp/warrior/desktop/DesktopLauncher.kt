@@ -8,8 +8,8 @@ object DesktopLauncher {
     @JvmStatic
     fun main(arg: Array<String>) {
         val config = LwjglApplicationConfiguration().apply {
-            width = 1280
-            height = 720
+            width = 960 // 1280 // 1024 // 854 // 640
+            height = 540 // 720 // 576 // 480 // 360
         }
         LwjglApplication(LeoWarriorGame(), config)
     }

@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.leovp.warrior.assets.characters.Baker
+import com.leovp.warrior.assets.characters.ModernGuy02
+import com.leovp.warrior.assets.characters.RussianF1
 
 /**
  * Author: Michael Leo
@@ -20,10 +22,9 @@ class Assets {
         lateinit var titleFont: Array<Array<TextureRegion>>
         lateinit var mainMenuBg: Texture
 
-        lateinit var cavermanIdle: com.badlogic.gdx.utils.Array<TextureAtlas.AtlasRegion>
-        lateinit var cavermanWalk: com.badlogic.gdx.utils.Array<TextureAtlas.AtlasRegion>
-
         lateinit var bakerTextureRegion: Array<Array<TextureRegion>>
+        lateinit var modernGuy02TextureRegion: Array<Array<TextureRegion>>
+        lateinit var russianF1TextureRegion: Array<Array<TextureRegion>>
 
         fun loadTexture(file: String): Texture = Texture(Gdx.files.internal(file))
         fun loadAtlas(file: String): TextureAtlas = TextureAtlas(file)
@@ -51,14 +52,14 @@ class Assets {
     }
 
     fun loadGameScreenAssets() {
-        val cavermanIdleAtlas = TextureAtlas(Gdx.files.internal("caverman_idle.atlas"))
-        cavermanIdle = cavermanIdleAtlas.findRegions("caverman_idle")
-
-        val cavermanWalkAtlas = TextureAtlas(Gdx.files.internal("caverman_walk.atlas"))
-        cavermanWalk = cavermanWalkAtlas.findRegions("caverman_walk")
-
-        val bakerSheet = loadTexture("baker.png")
+        val bakerSheet = loadTexture("characters/baker.png")
         bakerTextureRegion = TextureRegion.split(bakerSheet, bakerSheet.width / Baker.FRAME_COLS, bakerSheet.height / Baker.FRAME_ROWS)
+
+        val modernGuy02Sheet = loadTexture("characters/modernguy02.png")
+        modernGuy02TextureRegion = TextureRegion.split(modernGuy02Sheet, modernGuy02Sheet.width / ModernGuy02.FRAME_COLS, modernGuy02Sheet.height / ModernGuy02.FRAME_ROWS)
+
+        val russianF1Sheet = loadTexture("characters/russian_f1.png")
+        russianF1TextureRegion = TextureRegion.split(russianF1Sheet, russianF1Sheet.width / RussianF1.FRAME_COLS, russianF1Sheet.height / RussianF1.FRAME_ROWS)
     }
 
     fun dispose() {

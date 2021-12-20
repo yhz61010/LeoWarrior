@@ -39,6 +39,8 @@ abstract class Character(x: Float, y: Float, width: Float, height: Float) : Dyna
     init {
         velocity.set(22f, 22f)
         accel.set(4f, 4f)
+
+        scaleCollisionBounds(0.72f, 0.95f)
     }
 
     fun handleInput() {
@@ -63,6 +65,26 @@ abstract class Character(x: Float, y: Float, width: Float, height: Float) : Dyna
         }
     }
 
+    fun moveLeft(destX: Float): Boolean {
+        return if (x <= destX) {
+            status = Status.LEFT_IDLE
+            true
+        } else {
+            status = Status.LEFT_WALK
+            false
+        }
+    }
+
+    fun moveRight(destX: Float): Boolean {
+        return if (x >= destX) {
+            status = Status.RIGHT_IDLE
+            true
+        } else {
+            status = Status.RIGHT_WALK
+            false
+        }
+    }
+
     fun update(dt: Float) {
         stateTime += dt
 
@@ -81,6 +103,7 @@ abstract class Character(x: Float, y: Float, width: Float, height: Float) : Dyna
         if (position.y <= 0) position.y = 0f
 
         bounds.setPosition(position)
+        updateCollisionPosition(position, 1.1f, 0f) // 4.5
     }
 
     fun render(sb: SpriteBatch) {

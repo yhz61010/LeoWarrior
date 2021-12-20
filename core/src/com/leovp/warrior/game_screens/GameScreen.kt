@@ -4,7 +4,8 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.leovp.warrior.LeoWarriorGame
 import com.leovp.warrior.assets.characters.Baker
-import com.leovp.warrior.assets.characters.player.Caverman
+import com.leovp.warrior.assets.characters.ModernGuy02
+import com.leovp.warrior.assets.characters.RussianF1
 import com.leovp.warrior.framework.LeoScreen
 
 /**
@@ -15,8 +16,9 @@ class GameScreen(game: LeoWarriorGame) : LeoScreen(game, game.batch) {
     override fun getTagName() = TAG
 
     private var level = 1
-    private val caverman = Caverman(0f, 0f)
     private val baker = Baker(50f, 50f)
+    private val modernGuy02 = ModernGuy02(150f, 50f)
+    private val russianF1 = RussianF1(100f, 70f)
 
     init {
         Gdx.app.log(TAG, "=====> GameScreen <=====")
@@ -34,20 +36,25 @@ class GameScreen(game: LeoWarriorGame) : LeoScreen(game, game.batch) {
 
     override fun update(delta: Float) {
         handleInput()
-        caverman.update(delta)
         baker.update(delta)
+        modernGuy02.update(delta)
+        russianF1.update(delta)
     }
 
     override fun drawForBlending() {
-        caverman.render(batch)
         baker.render(batch)
+        modernGuy02.render(batch)
+        russianF1.render(batch)
     }
 
     override fun drawShapeRenderer() {
-        super.drawShapeRenderer()
-        caverman.drawShapeRenderer(game.camera.combined)
-        caverman.drawCollisionShapeRenderer(game.camera.combined)
         baker.drawShapeRenderer(game.camera.combined)
+        modernGuy02.drawShapeRenderer(game.camera.combined)
+        russianF1.drawShapeRenderer(game.camera.combined)
+
+        baker.drawCollisionShapeRenderer(game.camera.combined)
+        modernGuy02.drawCollisionShapeRenderer(game.camera.combined)
+        russianF1.drawCollisionShapeRenderer(game.camera.combined)
     }
 
     companion object {
