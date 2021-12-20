@@ -95,7 +95,7 @@ abstract class Character(x: Float, y: Float, private val textureRegion: Array<Ar
         if (position.y <= 0) position.y = 0f
 
         bounds.setPosition(position)
-        updateCollisionPosition(position, 1.1f, 0f) // 4.5
+        updateCollisionPosition(position, 1.1f, 0f)
     }
 
     fun render(sb: SpriteBatch) {
