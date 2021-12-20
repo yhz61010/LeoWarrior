@@ -26,10 +26,10 @@ abstract class Character(x: Float, y: Float, width: Float, height: Float) : Dyna
     abstract fun getLeftWalkFrames(): Array<TextureRegion>
     abstract fun getRightWalkFrames(): Array<TextureRegion>
 
-    private val facingWalkAnim: Animation<TextureRegion> by lazy { Animation(1f / 9, *getFacingWalkFrames()).apply { playMode = Animation.PlayMode.LOOP } }
-    private val backingWalkAnim: Animation<TextureRegion> by lazy { Animation(1f / 9, *getBackingWalkFrames()).apply { playMode = Animation.PlayMode.LOOP } }
-    private val leftWalkAnim: Animation<TextureRegion> by lazy { Animation(1f / 9, *getLeftWalkFrames()).apply { playMode = Animation.PlayMode.LOOP } }
-    private val rightWalkAnim: Animation<TextureRegion> by lazy { Animation(1f / 9, *getRightWalkFrames()).apply { playMode = Animation.PlayMode.LOOP } }
+    private val facingWalkAnim: Animation<TextureRegion> by lazy { Animation(1f / 10, *getFacingWalkFrames()).apply { playMode = Animation.PlayMode.LOOP } }
+    private val backingWalkAnim: Animation<TextureRegion> by lazy { Animation(1f / 10, *getBackingWalkFrames()).apply { playMode = Animation.PlayMode.LOOP } }
+    private val leftWalkAnim: Animation<TextureRegion> by lazy { Animation(1f / 10, *getLeftWalkFrames()).apply { playMode = Animation.PlayMode.LOOP } }
+    private val rightWalkAnim: Animation<TextureRegion> by lazy { Animation(1f / 10, *getRightWalkFrames()).apply { playMode = Animation.PlayMode.LOOP } }
 
     /** Time since the animation has started. */
     private var stateTime = 0f
@@ -37,8 +37,8 @@ abstract class Character(x: Float, y: Float, width: Float, height: Float) : Dyna
     var status = Status.FACING_IDLE
 
     init {
-        velocity.set(14f, 14f)
-        accel.set(0.05f, 0.05f)
+        velocity.set(22f, 22f)
+        accel.set(4f, 4f)
     }
 
     fun handleInput() {
@@ -76,6 +76,10 @@ abstract class Character(x: Float, y: Float, width: Float, height: Float) : Dyna
 
         if (position.x + bounds.width >= World.WORLD_WIDTH) position.x = World.WORLD_WIDTH - bounds.width
         if (position.x <= 0) position.x = 0f
+
+        if (position.y + bounds.height >= World.WORLD_HEIGHT) position.y = World.WORLD_HEIGHT - bounds.height
+        if (position.y <= 0) position.y = 0f
+
         bounds.setPosition(position)
     }
 
