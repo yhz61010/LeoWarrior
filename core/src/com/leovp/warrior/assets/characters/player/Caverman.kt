@@ -1,4 +1,4 @@
-package com.leovp.warrior.assets.player
+package com.leovp.warrior.assets.characters.player
 
 import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.SpriteBatch

@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.leovp.warrior.LeoWarriorGame
 import com.leovp.warrior.assets.characters.Baker
-import com.leovp.warrior.assets.player.Caverman
+import com.leovp.warrior.assets.characters.player.Caverman
 import com.leovp.warrior.framework.LeoScreen
 
 /**
@@ -28,25 +28,7 @@ class GameScreen(game: LeoWarriorGame) : LeoScreen(game, game.batch) {
     }
 
     private fun handleInput() {
-        baker.status = when (baker.status) {
-            Baker.Status.FACING_WALK -> Baker.Status.FACING_IDLE
-            Baker.Status.BACKING_WALK -> Baker.Status.BACKING_IDLE
-            Baker.Status.LEFT_WALK -> Baker.Status.LEFT_IDLE
-            Baker.Status.RIGHT_WALK -> Baker.Status.RIGHT_IDLE
-            else -> baker.status
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S)) {
-            baker.status = Baker.Status.FACING_WALK
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) {
-            baker.status = Baker.Status.BACKING_WALK
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) {
-            baker.status = Baker.Status.LEFT_WALK
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) {
-            baker.status = Baker.Status.RIGHT_WALK
-        }
+        baker.handleInput()
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) game.screen = MainMenuScreen(game)
     }
 
