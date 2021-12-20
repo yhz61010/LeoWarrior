@@ -12,24 +12,16 @@ import com.leovp.warrior.framework.DynamicGameObject
  * Author: Michael Leo
  * Date: 2021/12/20 13:32
  */
-abstract class Character(x: Float, y: Float, width: Float, height: Float) : DynamicGameObject(x, y, width, height) {
+abstract class Character(x: Float, y: Float, private val textureRegion: Array<Array<TextureRegion>>) :
+    DynamicGameObject(x, y, textureRegion[0][0].regionWidth * SCALE, textureRegion[0][0].regionHeight * SCALE) {
+
     abstract fun getTagName(): String
 //    val tag: String by lazy { getTagName() }
 
-    abstract fun getFacingIdle(): TextureRegion
-    abstract fun getBackingIdle(): TextureRegion
-    abstract fun getLeftIdle(): TextureRegion
-    abstract fun getRightIdle(): TextureRegion
-
-    abstract fun getFacingWalkFrames(): Array<TextureRegion>
-    abstract fun getBackingWalkFrames(): Array<TextureRegion>
-    abstract fun getLeftWalkFrames(): Array<TextureRegion>
-    abstract fun getRightWalkFrames(): Array<TextureRegion>
-
-    private val facingWalkAnim: Animation<TextureRegion> by lazy { Animation(1f / 10, *getFacingWalkFrames()).apply { playMode = Animation.PlayMode.LOOP } }
-    private val backingWalkAnim: Animation<TextureRegion> by lazy { Animation(1f / 10, *getBackingWalkFrames()).apply { playMode = Animation.PlayMode.LOOP } }
-    private val leftWalkAnim: Animation<TextureRegion> by lazy { Animation(1f / 10, *getLeftWalkFrames()).apply { playMode = Animation.PlayMode.LOOP } }
-    private val rightWalkAnim: Animation<TextureRegion> by lazy { Animation(1f / 10, *getRightWalkFrames()).apply { playMode = Animation.PlayMode.LOOP } }
+    private val facingWalkAnim: Animation<TextureRegion> = Animation(1f / 10, *textureRegion[0]).apply { playMode = Animation.PlayMode.LOOP }
+    private val backingWalkAnim: Animation<TextureRegion> = Animation(1f / 10, *textureRegion[3]).apply { playMode = Animation.PlayMode.LOOP }
+    private val leftWalkAnim: Animation<TextureRegion> = Animation(1f / 10, *textureRegion[1]).apply { playMode = Animation.PlayMode.LOOP }
+    private val rightWalkAnim: Animation<TextureRegion> = Animation(1f / 10, *textureRegion[2]).apply { playMode = Animation.PlayMode.LOOP }
 
     /** Time since the animation has started. */
     private var stateTime = 0f
@@ -113,10 +105,10 @@ abstract class Character(x: Float, y: Float, width: Float, height: Float) : Dyna
             Status.LEFT_WALK -> leftWalkAnim.getKeyFrame(stateTime)
             Status.RIGHT_WALK -> rightWalkAnim.getKeyFrame(stateTime)
 
-            Status.FACING_IDLE -> getFacingIdle()
-            Status.BACKING_IDLE -> getBackingIdle()
-            Status.LEFT_IDLE -> getLeftIdle()
-            Status.RIGHT_IDLE -> getRightIdle()
+            Status.FACING_IDLE -> textureRegion[0][0]
+            Status.BACKING_IDLE -> textureRegion[3][0]
+            Status.LEFT_IDLE -> textureRegion[1][0]
+            Status.RIGHT_IDLE -> textureRegion[2][0]
         }
         sb.draw(keyFrame, position.x, position.y, bounds.width, bounds.height)
     }
@@ -136,5 +128,8 @@ abstract class Character(x: Float, y: Float, width: Float, height: Float) : Dyna
     companion object {
         /** Scaling factor for the texture. */
         const val SCALE = 0.2f
+
+        const val FRAME_ROWS = 4
+        const val FRAME_COLS = 4
     }
 }
