@@ -41,7 +41,7 @@ abstract class LeoScreen(protected val game: LeoWarriorGame, protected val batch
     protected abstract fun update(delta: Float)
     protected open fun drawForDisableBlending() {}
     protected open fun drawForBlending() {}
-    protected open fun drawWithoutBatchAround() {}
+    protected open fun drawAfterBatchEnd() {}
     protected open fun drawShapeRenderer() {}
 
     override fun render(delta: Float) {
@@ -52,21 +52,17 @@ abstract class LeoScreen(protected val game: LeoWarriorGame, protected val batch
         game.camera.update()
         batch.projectionMatrix = game.camera.combined
 
-        batch.disableBlending()
         batch.begin()
+        batch.disableBlending()
         drawForDisableBlending()
-        batch.end()
 
         batch.enableBlending()
-        batch.begin()
         if (LeoWarriorGame.DEBUG) debugInfoLabel?.setText(getDebugInfoString())
         drawForBlending()
         batch.end()
 
         if (LeoWarriorGame.DEBUG) debugStage?.draw()
-
-        drawWithoutBatchAround()
-
+        drawAfterBatchEnd()
         if (LeoWarriorGame.DEBUG) drawShapeRenderer()
     }
 

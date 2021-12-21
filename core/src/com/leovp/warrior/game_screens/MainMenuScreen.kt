@@ -75,6 +75,11 @@ class MainMenuScreen(game: LeoWarriorGame) : LeoScreen(game, game.batch) {
     }
 
     override fun drawForBlending() {
+    }
+
+    override fun drawForDisableBlending() {
+        batch.draw(Assets.mainMenuBg, 0f, 0f, World.WORLD_WIDTH, World.WORLD_HEIGHT)
+
         val loadingProgress = game.assets.manager.progress.round()
         if (loadingProgress < 1f) {
             loadingLabel.setText("${loadingProgress * 100}%")
@@ -83,11 +88,7 @@ class MainMenuScreen(game: LeoWarriorGame) : LeoScreen(game, game.batch) {
         }
     }
 
-    override fun drawForDisableBlending() {
-        batch.draw(Assets.mainMenuBg, 0f, 0f, World.WORLD_WIDTH, World.WORLD_HEIGHT)
-    }
-
-    override fun drawWithoutBatchAround() {
+    override fun drawAfterBatchEnd() {
         mainMenuStage.draw()
     }
 
