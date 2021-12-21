@@ -24,7 +24,7 @@ abstract class Character(x: Float, y: Float, private val textureRegion: Array<Ar
     private val rightWalkAnim: Animation<TextureRegion> = Animation(1f / 10, *textureRegion[2]).apply { playMode = Animation.PlayMode.LOOP }
 
     /** Time since the animation has started. */
-    private var stateTime = 0f
+    protected var stateTime = 0f
 
     var status = Status.FACING_IDLE
 
@@ -77,7 +77,7 @@ abstract class Character(x: Float, y: Float, private val textureRegion: Array<Ar
         }
     }
 
-    fun update(dt: Float) {
+    open fun update(dt: Float) {
         stateTime += dt
 
         when (status) {
@@ -87,7 +87,10 @@ abstract class Character(x: Float, y: Float, private val textureRegion: Array<Ar
             Status.RIGHT_WALK -> position.add(velocity.x * dt + accel.x * dt, 0f)
             else -> Unit
         }
+        adjustPosAndUpdate()
+    }
 
+    fun adjustPosAndUpdate() {
         if (position.x + bounds.width >= World.WORLD_WIDTH) position.x = World.WORLD_WIDTH - bounds.width
         if (position.x <= 0) position.x = 0f
 
