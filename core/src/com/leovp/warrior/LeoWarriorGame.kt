@@ -23,7 +23,7 @@ class LeoWarriorGame : Game() {
     override fun create() {
         camera = OrthographicCamera().apply { setToOrtho(false, World.WORLD_WIDTH, World.WORLD_HEIGHT) }
         viewport = FitViewport(World.WORLD_WIDTH, World.WORLD_HEIGHT, camera).apply { apply(true) }
-        batch = SpriteBatch()
+        batch = SpriteBatch(100)
 
         assets = Assets()
         Gdx.app.log(TAG, "Loading MainMenuScreen assets...")

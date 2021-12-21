@@ -17,6 +17,8 @@ import com.leovp.warrior.gfx.Font
 /**
  * Author: Michael Leo
  * Date: 2021/11/22 13:30
+ *
+ * https://www.jianshu.com/p/e1fcdc699a68
  */
 abstract class LeoScreen(protected val game: LeoWarriorGame, protected val batch: SpriteBatch) : Screen { // or implements ScreenAdapter
     abstract fun getTagName(): String
@@ -44,6 +46,7 @@ abstract class LeoScreen(protected val game: LeoWarriorGame, protected val batch
     protected open fun drawAfterBatchEnd() {}
     protected open fun drawShapeRenderer() {}
 
+    // https://www.jianshu.com/p/e1fcdc699a68
     override fun render(delta: Float) {
         update(delta)
 
@@ -55,15 +58,17 @@ abstract class LeoScreen(protected val game: LeoWarriorGame, protected val batch
         batch.begin()
         batch.disableBlending()
         drawForDisableBlending()
-
         batch.enableBlending()
-        if (LeoWarriorGame.DEBUG) debugInfoLabel?.setText(getDebugInfoString())
         drawForBlending()
         batch.end()
 
-        if (LeoWarriorGame.DEBUG) debugStage?.draw()
         drawAfterBatchEnd()
+
         if (LeoWarriorGame.DEBUG) drawShapeRenderer()
+        if (LeoWarriorGame.DEBUG) {
+            debugInfoLabel?.setText(getDebugInfoString())
+            debugStage?.draw()
+        }
     }
 
     override fun show() {
@@ -95,9 +100,10 @@ abstract class LeoScreen(protected val game: LeoWarriorGame, protected val batch
 
     private fun getDebugInfoString(): String {
         return String.format(
-            "FPS=%d Sprites=%d\nrenderCalls=%d totalRenderCalls=%d\njavaHeap=%s nativeHeap=%s",
-            Gdx.graphics.framesPerSecond, game.batch.maxSpritesInBatch, game.batch.renderCalls, game.batch.totalRenderCalls,
-            Gdx.app.javaHeap.humanReadableByteCount(), Gdx.app.nativeHeap.humanReadableByteCount()
+            "FPS=%d RenderCalls=%d\nJavaHeap=%s NativeHeap=%s\nMaxSpritesInBatch=%d TotalRenderCalls=%d",
+            Gdx.graphics.framesPerSecond, game.batch.renderCalls,
+            Gdx.app.javaHeap.humanReadableByteCount(), Gdx.app.nativeHeap.humanReadableByteCount(),
+            game.batch.maxSpritesInBatch, game.batch.totalRenderCalls
         )
     }
 }
