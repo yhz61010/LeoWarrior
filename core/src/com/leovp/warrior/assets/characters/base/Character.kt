@@ -35,6 +35,13 @@ abstract class Character(x: Float, y: Float, private val textureRegion: Array<Ar
         scaleCollisionBounds(0.72f, 0.95f)
     }
 
+    fun updateFrameDuration(duration: Float) {
+        facingWalkAnim.frameDuration = duration
+        backingWalkAnim.frameDuration = duration
+        leftWalkAnim.frameDuration = duration
+        rightWalkAnim.frameDuration = duration
+    }
+
     fun handleInput() {
         status = when (status) {
             Status.FACING_WALK -> Status.FACING_IDLE

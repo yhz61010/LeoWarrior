@@ -11,9 +11,14 @@ import com.leovp.warrior.assets.characters.base.Character
 class Baker(x: Float, y: Float) : Character(x, y, Assets.bakerTextureRegion) {
     override fun getTagName() = TAG
 
+    init {
+        velocity.set(8f, 8f)
+        updateFrameDuration(1f / 6)
+    }
+
     override fun update(dt: Float) {
         stateTime += dt
-        val dist = MathUtils.sin(stateTime) * velocity.y * dt
+        val dist = (MathUtils.sin(stateTime) + MathUtils.cos(stateTime)) * velocity.y * dt
 //        Gdx.app.log(TAG, "${MathUtils.sin(stateTime)}")
 
         status = if (dist >= 0) {
